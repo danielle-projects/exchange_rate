@@ -10,8 +10,7 @@ from data.currencies import Currencies
 
 class ExchangeRateService:
     def __init__(self):
-        input_handler = InputHandler(args.currency, args.graph_format)
-        self.currency_exchange_rate_df = input_handler.convert_input_file_to_df()
+        self.currency_exchange_rate_df = InputHandler().convert_input_file_to_df()
         if self.currency_exchange_rate_df.empty:
             print('currency exchange rate df is empty')
             return
