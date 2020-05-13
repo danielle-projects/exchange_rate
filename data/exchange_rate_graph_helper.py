@@ -1,5 +1,4 @@
 from dateutil import relativedelta
-
 import pandas as pd
 
 import matplotlib.pyplot as plt
@@ -60,13 +59,18 @@ class ExchangeRateGraphHelper:
     @staticmethod
     def create_graph_from_df(currency_exchange_rate_df, currency_code):
         relevant_currency_column_name = Currencies.get_currencies_dict()[currency_code]
+        ax = plt.gca()
         graph = currency_exchange_rate_df.plot(kind=ExchangeRateGraphConsts.GRAPH_KIND,
                                                x=ExchangeRateGraphConsts.DATE_COLUMN_NAME,
                                                y=relevant_currency_column_name,
                                                color=ExchangeRateGraphConsts.GRAPH_COLOR,
                                                title=ExchangeRateGraphConsts.GRAPH_TITLE,
                                                figsize=ExchangeRateGraphConsts.FIGURE_SIZE,
-                                               grid=ExchangeRateGraphConsts.GRAPH_GRID)
+                                               grid=ExchangeRateGraphConsts.GRAPH_GRID,
+                                               ax=ax)
+        graph.set_ylabel(ExchangeRateGraphConsts.PLOT_Y_LABEL)
+        graph.set_xlabel(ExchangeRateGraphConsts.PLOT_X_LABEL)
+        graph.legend(ExchangeRateGraphConsts.PLOT_LEGEND)
         ExchangeRateGraphHelper.set_graph_ticks_formatter(graph)
         return graph
 
@@ -75,13 +79,5 @@ class ExchangeRateGraphHelper:
         graph.xaxis.set_major_formatter(mdates.DateFormatter(ExchangeRateGraphConsts.GRAPH_THICK_DATE_FORMAT))
 
     @staticmethod
-    def set_plot_settings():
-        plt.ylabel(ExchangeRateGraphConsts.PLOT_Y_LABEL)
-        plt.xlabel(ExchangeRateGraphConsts.PLOT_X_LABEL)
-        plt.legend(ExchangeRateGraphConsts.PLOT_LEGEND)
-
-    @staticmethod
     def show_graph():
-        ExchangeRateGraphHelper.set_plot_settings()
-        plt.gca()
         plt.show()

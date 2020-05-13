@@ -1,6 +1,7 @@
 import os
 import requests
 from datetime import datetime
+import fnmatch
 
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -16,10 +17,16 @@ class InputHandler:
         self.currency_rate_df = self.convert_input_file_to_df()
 
     def get_updated_file_path(self):
+        """
+        check if exchange_rate.xlsx from today is already exists in current working dir.
+        if not - get the data file from boi(bank of Israel website)
+        :return:
+        """
         date_of_today = datetime.now().date().strftime(InputHandlerConsts.DATE_FORMAT)
         file_name = InputHandlerConsts.CUSTOM_FILE_NAME.format(date_of_today)
         cur_dir = os.getcwd()
         if file_name not in os.listdir(cur_dir):
+            self.remove_old_exchange_rate_files(cur_dir)
             self.get_exchange_rate_data_from_boi_website(file_name)
         return file_name
 
@@ -66,3 +73,11 @@ class InputHandler:
         output = open(file_name, mode='wb')
         output.write(resp.content)
         output.close()
+
+    @staticmethod
+    def remove_old_exchange_rate_files(cur_dir):
+        for filename in fnmatch.filter(os.listdir(cur_dir), 'exchange_rate_*.xlsx'):
+            try:
+                os.remove(os.path.join(cur_dir, filename))
+            except OSError:
+                print("Error while deleting file")

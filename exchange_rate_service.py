@@ -30,7 +30,7 @@ if __name__ == '__main__':
                         type=str.upper,
                         default='USD',
                         choices=currency_codes.keys(),
-                        help=f'''choose currency code - default is USD,
+                        help=f'''choose a currency code - default currecy is USD,
                              optional choices are {currencies_string}''')
 
     parser.add_argument('--graph_formatter',
