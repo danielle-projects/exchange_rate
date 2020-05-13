@@ -71,12 +71,8 @@ class ExchangeRateGraphHelper:
         graph.set_ylabel(ExchangeRateGraphConsts.PLOT_Y_LABEL)
         graph.set_xlabel(ExchangeRateGraphConsts.PLOT_X_LABEL)
         graph.legend(ExchangeRateGraphConsts.PLOT_LEGEND)
-        ExchangeRateGraphHelper.set_graph_ticks_format(graph)
-        return graph
-
-    @staticmethod
-    def set_graph_ticks_format(graph):
         graph.xaxis.set_major_formatter(mdates.DateFormatter(ExchangeRateGraphConsts.GRAPH_THICK_DATE_FORMAT))
+        return graph
 
     @staticmethod
     def show_graph():
