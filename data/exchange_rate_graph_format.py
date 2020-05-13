@@ -1,5 +1,5 @@
 
-class ExchangeRateGraphFormatter:
+class ExchangeRateGraphFormat:
     WEEK = 'week'
     MONTH = 'month'
     THREE_MONTHS = 'three_months'
