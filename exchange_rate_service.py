@@ -10,16 +10,16 @@ from data.currencies import Currencies
 
 class ExchangeRateService:
     def __init__(self):
-        input_handler = InputHandler(args.currency, args.graph_formatter)
+        input_handler = InputHandler(args.currency, args.graph_format)
         self.currency_exchange_rate_df = input_handler.convert_input_file_to_df()
         if self.currency_exchange_rate_df.empty:
             print('currency exchange rate df is empty')
             return
-        ExchangeRateGraph(graph_formatter=args.graph_formatter,
+        ExchangeRateGraph(graph_format=args.graph_format,
                           currency_code=args.currency,
                           currency_exchange_rate_df=self.currency_exchange_rate_df,
                           date_of_today=pd.to_datetime(datetime.now().date())) \
-            .create_graph_based_on_graph_formatter()
+            .create_graph_based_on_graph_format()
 
 
 if __name__ == '__main__':
@@ -33,7 +33,7 @@ if __name__ == '__main__':
                         help=f'''choose a currency code - default currecy is USD,
                              optional choices are {currencies_string}''')
 
-    parser.add_argument('--graph_formatter',
+    parser.add_argument('--graph_format',
                         type=str.lower,
                         help='choose graph format',
                         default=ExchangeRateGraphFormat.MONTH,

@@ -10,10 +10,10 @@ from data.input_handler_conts import InputHandlerConsts
 
 
 class InputHandler:
-    def __init__(self, currency, graph_formatter):
+    def __init__(self, currency, graph_format):
         self.input_file_path = self.get_updated_file_path()
         self.currency = currency
-        self.graph_formatter = graph_formatter
+        self.graph_format = graph_format
         self.currency_rate_df = self.convert_input_file_to_df()
 
     def get_updated_file_path(self):

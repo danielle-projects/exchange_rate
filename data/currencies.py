@@ -1,5 +1,4 @@
 class Currencies:
-
     @staticmethod
     def get_currencies_dict():
         currencies_dict = {
