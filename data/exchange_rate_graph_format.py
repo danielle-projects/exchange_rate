@@ -1,4 +1,3 @@
-
 class ExchangeRateGraphFormat:
     WEEK = 'week'
     MONTH = 'month'

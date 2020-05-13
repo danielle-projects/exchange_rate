@@ -1,7 +1,5 @@
 import argparse
-
 import pandas as pd
-
 from datetime import datetime
 
 from data.input_handler import InputHandler
@@ -22,7 +20,6 @@ class ExchangeRateService:
                           currency_exchange_rate_df=self.currency_exchange_rate_df,
                           date_of_today=pd.to_datetime(datetime.now().date())) \
             .create_graph_based_on_graph_formatter()
-
 
 
 if __name__ == '__main__':
