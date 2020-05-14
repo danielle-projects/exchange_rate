@@ -1,3 +1,5 @@
+import matplotlib.dates as mdates
+
 from data.exchange_rate_graph_helper import ExchangeRateGraphHelper
 from data.exchange_rate_graph_format import ExchangeRateGraphFormat
 
@@ -11,11 +13,38 @@ class ExchangeRateGraph:
 
     def create_graph_based_on_graph_format(self):
         if self.graph_format == ExchangeRateGraphFormat.MONTH:
-            ExchangeRateGraphHelper.process_graph_month_format(self.date_of_today, self.currency_code, self.currency_exchange_rate_df)
+            ticker_locator = mdates.WeekdayLocator(byweekday=mdates.SU)
+            ExchangeRateGraphHelper.process_graph(
+                self.date_of_today,
+                self.currency_code,
+                self.currency_exchange_rate_df,
+                ticker_locator,
+                months=1,
+            )
         elif self.graph_format == ExchangeRateGraphFormat.WEEK:
-            ExchangeRateGraphHelper.create_graph_week_format(self.date_of_today, self.currency_code, self.currency_exchange_rate_df)
+            ticker_locator = mdates.DayLocator()
+            ExchangeRateGraphHelper.process_graph(
+                self.date_of_today,
+                self.currency_code,
+                self.currency_exchange_rate_df,
+                ticker_locator,
+                weeks=1,
+            )
         elif self.graph_format == ExchangeRateGraphFormat.THREE_MONTHS:
-            ExchangeRateGraphHelper.create_graph_three_month_format(self.date_of_today, self.currency_code, self.currency_exchange_rate_df)
+            ticker_locator = mdates.WeekdayLocator(byweekday=mdates.SU)
+            ExchangeRateGraphHelper.process_graph(
+                self.date_of_today,
+                self.currency_code,
+                self.currency_exchange_rate_df,
+                ticker_locator,
+                months=3,
+            )
         elif self.graph_format == ExchangeRateGraphFormat.ONE_YEAR:
-            ExchangeRateGraphHelper.create_graph_one_year_format(self.date_of_today, self.currency_code, self.currency_exchange_rate_df)
-        ExchangeRateGraphHelper.show_graph()
+            ticker_locator = mdates.MonthLocator(bymonthday=self.date_of_today.day)
+            ExchangeRateGraphHelper.process_graph(
+                self.date_of_today,
+                self.currency_code,
+                self.currency_exchange_rate_df,
+                ticker_locator,
+                years=1,
+            )

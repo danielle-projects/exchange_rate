@@ -1,6 +1,7 @@
 import argparse
 import pandas as pd
 from datetime import datetime
+import logging
 
 from data.input_handler import InputHandler
 from data.exchange_rate_graph import ExchangeRateGraph
@@ -10,9 +11,10 @@ from data.currencies import Currencies
 
 class ExchangeRateService:
     def __init__(self):
-        self.currency_exchange_rate_df = InputHandler().convert_input_file_to_df()
+        input_handler = InputHandler()
+        self.currency_exchange_rate_df = input_handler.convert_input_file_to_df(input_handler.input_file_path)
         if self.currency_exchange_rate_df.empty:
-            print('currency exchange rate df is empty')
+            logging.warning('currency exchange rate df is empty')
             return
         ExchangeRateGraph(graph_format=args.graph_format,
                           currency_code=args.currency,
