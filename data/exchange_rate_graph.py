@@ -12,6 +12,10 @@ class ExchangeRateGraph:
         self.date_of_today = date_of_today
 
     def create_graph_based_on_graph_format(self):
+        """
+        create graph based on graph_format argument. default format is onr month.
+        :return: display the relevant graph
+        """
         if self.graph_format == ExchangeRateGraphFormat.MONTH:
             ticker_locator = mdates.WeekdayLocator(byweekday=mdates.SU)
             ExchangeRateGraphHelper.process_graph(
